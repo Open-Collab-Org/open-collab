@@ -1,6 +1,8 @@
 {
-  "./{src,test,config}/**/*.{ts,tsx,js,jsx}": [
+  "*.{ts,tsx,js,jsx}": [
     "eslint --cache --fix",
-    "prettier --write"
-  ]
+    "prettier --write",
+    "stylelint"
+  ],
+  "*.{css,scss}": "stylelint"
 }

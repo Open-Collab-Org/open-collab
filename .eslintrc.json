@@ -83,7 +83,6 @@
       "error",
       "consistent"
     ],
-    "implicit-arrow-linebreak": "error",
     "jsx-quotes": "error",
     "indent": [
       "error",
