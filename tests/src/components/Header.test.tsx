@@ -1,0 +1,50 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import React from 'react';
+import Header from '@components/Header';
+import * as nextRouter from 'next/router';
+import renderer from 'react-test-renderer';
+import { ThemeProvider } from 'styled-components';
+import light from '@themes/light';
+
+jest.spyOn(nextRouter, 'useRouter').mockReturnValue({
+    pathname: '/foo/bar'
+} as any);
+
+interface Span {
+    props: {
+        className: string;
+    };
+    children: string[];
+}
+
+describe('Suite Header', () => {
+    const tree = renderer
+        .create(
+            <ThemeProvider theme={light}>
+                <Header />
+            </ThemeProvider>
+        )
+        .toJSON() as renderer.ReactTestRendererJSON;
+
+    it('should use the url as path', () => {
+        const expected = ['Open Collab', '/', 'Foo', '/', 'Bar'];
+
+        tree.children!.forEach((span, i) => {
+            expect(expected[i]).toBe(((span as any) as Span).children[0]);
+        });
+    });
+
+    it('should apply a different style for the last element of the path', () => {
+        const twoToLast: Span = tree.children![
+            tree.children!.length - 3
+        ] as any;
+        const oneToLast: Span = tree.children![
+            tree.children!.length - 2
+        ] as any;
+        const last: Span = tree.children![tree.children!.length - 1] as any;
+
+        expect(oneToLast.props.className).toBe(twoToLast.props.className);
+        expect(last.props.className).not.toBe(oneToLast.props.className);
+    });
+});

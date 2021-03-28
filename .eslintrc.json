@@ -70,12 +70,10 @@
     "no-self-compare": "error",
     "no-throw-literal": "error",
     "no-unmodified-loop-condition": "error",
-    "no-unused-expressions": "error",
     "no-useless-concat": "error",
     "radix": "warn",
     "require-await": "error",
     "no-label-var": "error",
-    "no-use-before-define": "error",
     "block-spacing": "error",
     "comma-spacing": "error",
     "func-call-spacing": "error",
@@ -83,7 +81,6 @@
       "error",
       "consistent"
     ],
-    "implicit-arrow-linebreak": "error",
     "jsx-quotes": "error",
     "indent": [
       "error",
@@ -100,10 +97,6 @@
     ],
     "max-lines": "warn",
     "multiline-comment-style": "error",
-    "multiline-ternary": [
-      "error",
-      "never"
-    ],
     "no-array-constructor": "error",
     "no-bitwise": "error",
     "no-lonely-if": "error",
@@ -129,10 +122,6 @@
     "quote-props": [
       "error",
       "as-needed"
-    ],
-    "quotes": [
-      "error",
-      "single"
     ],
     "semi": "error",
     "semi-spacing": "error",
