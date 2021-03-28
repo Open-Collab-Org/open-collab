@@ -2,7 +2,7 @@
   "*.{ts,tsx,js,jsx}": [
     "eslint --cache --fix",
     "prettier --write",
-    "stylelint"
+    "stylelint --cache --fix"
   ],
-  "*.{css,scss}": "stylelint"
+  "*.{css,scss}": "stylelint --cache --fix"
 }
