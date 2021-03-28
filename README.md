@@ -8,18 +8,25 @@
 ### Prerequisites
 
 - [Node.js](https://nodejs.org/) (`^12.0.0`)
-- [Yarn](https://classic.yarnpkg.com/en/docs/install) (`^1.22`)
 
 Install all the necessary dependencies:
 
 ```bash
+# with yarn (recommended)
 $ yarn install
+
+# with npm
+$ npm install
 ```
 
 Start the development server:
 
 ```bash
 $ yarn dev
+
+# or
+
+$ npm run dev
 ```
 
 You may see all the available scripts [here](https://github.com/open-collaboration/web/blob/master/package.json#L7).
