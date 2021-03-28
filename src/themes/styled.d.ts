@@ -8,6 +8,16 @@ declare module 'styled-components' {
             danger: string;
             darkGraffiti: string;
             background: string;
+            sheet: string;
+            sheetBorder: string;
+            fieldBg: string;
+            fieldBorder: string;
+        };
+        fonts: {
+            // TODO Change name for title, primary, etc, ...
+            raleway: string;
+            roboto: string;
+            robotoMono: string;
         };
     }
 }

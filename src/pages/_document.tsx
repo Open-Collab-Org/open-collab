@@ -1,4 +1,10 @@
-import Document, { DocumentContext } from 'next/document';
+import Document, {
+    DocumentContext,
+    Head,
+    Html,
+    Main,
+    NextScript
+} from 'next/document';
 import { ServerStyleSheet } from 'styled-components';
 
 /*
@@ -31,5 +37,24 @@ export default class MyDocument extends Document {
         } finally {
             sheet.seal();
         }
+    }
+
+    render() {
+        return (
+            <Html>
+                <Head>
+                    <link rel="preconnect" href="https://fonts.gstatic.com" />
+                    {/* TODO Is the practicality of loading all the fonts always worth the performance impact?*/}
+                    <link
+                        href="https://fonts.googleapis.com/css2?family=Raleway&family=Roboto+Mono:wght@400;700&family=Roboto:wght@400;500&display=swap"
+                        rel="stylesheet"
+                    />
+                </Head>
+                <body>
+                    <Main />
+                    <NextScript />
+                </body>
+            </Html>
+        );
     }
 }
