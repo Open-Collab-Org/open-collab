@@ -24,6 +24,12 @@ const Path = styled.span`
     font-size: 20px;
 `;
 
+const LastOfPath = styled(Path)`
+    font-size: 36px;
+    line-height: 42px;
+    color: white;
+`;
+
 const Header = () => {
     const router = useRouter();
 
@@ -39,11 +45,17 @@ const Header = () => {
     return (
         <StyledHeader>
             <Title>Open Collab</Title>
-            {pathArr.map((text, i) => (
-                <Path className="mx-2" key={i}>
-                    {text}
-                </Path>
-            ))}
+            {pathArr.map((text, i) =>
+                i === pathArr.length - 1 ? (
+                    <LastOfPath className="mx-2" key={i}>
+                        {text}
+                    </LastOfPath>
+                ) : (
+                    <Path className="mx-2" key={i}>
+                        {text}
+                    </Path>
+                )
+            )}
         </StyledHeader>
     );
 };

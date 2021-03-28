@@ -7,7 +7,7 @@ export const Title = styled.h1`
     margin: 30px 0 50px 0;
 `;
 
-export const ButtonHint = styled.span`
+export const Hint = styled.span`
     color: #7e7e7e;
     font-size: 14px;
     line-height: 16px;

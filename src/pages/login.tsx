@@ -1,14 +1,16 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Link from 'next/link';
+import axios from 'axios';
 import Header from '@components/Header';
 import { Input, InputLabel, InputWrap } from '@components/styles/inputs';
 import { LoginSheet } from '@components/styles/sheets';
 import { Button } from '@components/styles/buttons';
 import { IntegrationButton } from '@components/styles/integrations';
-import { ButtonHint, Title } from '@components/styles/titles';
+import { Hint, Title } from '@components/styles/titles';
+import Recaptcha from '@components/Recaptcha';
 
-const LoginWith = styled(ButtonHint)`
+const LoginWith = styled(Hint)`
     margin: 15px 0 25px 0;
 `;
 
@@ -26,9 +28,44 @@ const Spacer = styled.div`
 `;
 
 const Login = () => {
+    const [isMounted, setMounted] = useState(true);
+    const [recaptcha, setReCaptcha] = useState<Recaptcha>(null!);
+
+    const source = axios.CancelToken.source();
+
+    // Cleanup
+    useEffect(
+        () => () => {
+            setMounted(false);
+            source.cancel();
+        },
+        []
+    );
+
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         console.log('Form submitted!');
+        recaptcha.execute();
+    };
+
+    const handleRecaptchaResolved = (token: string, captcha: Recaptcha) => {
+        axios({
+            url: '/login',
+            method: 'POST',
+            baseURL: process.env.NEXT_PUBLIC_HOST,
+            cancelToken: source.token,
+            data: {
+                username: (document.getElementById(
+                    'username'
+                ) as HTMLInputElement).value,
+                password: (document.getElementById(
+                    'password'
+                ) as HTMLInputElement).value,
+                recaptchaToken: token
+            }
+        })
+            .catch(err => console.error(err))
+            .finally(() => isMounted && captcha.reset());
     };
 
     return (
@@ -41,8 +78,8 @@ const Login = () => {
                 <InputWrap>
                     <InputLabel htmlFor="login">Username or email</InputLabel>
                     <Input
-                        name="login"
-                        id="login"
+                        name="username"
+                        id="username"
                         type="text"
                         placeholder="JohnDoe"
                     />
@@ -58,15 +95,13 @@ const Login = () => {
                         <ForgotPassword>Forgot?</ForgotPassword>
                     </Link>
 
+                    <Recaptcha
+                        onResolved={handleRecaptchaResolved}
+                        ref={ref => setReCaptcha(ref!)}
+                    />
                     <Button>Login</Button>
-                    <ButtonHint className="mt-2">
-                        Don't have an account yet?{' '}
-                        <Link href="/signup">
-                            <a>Signup</a>
-                        </Link>
-                    </ButtonHint>
                     <LoginWith>or login with</LoginWith>
-                    <div className="d-flex justify-content-center">
+                    <div className="d-flex justify-content-center mb-3">
                         <IntegrationButton href="#">
                             <img
                                 width={32}
@@ -83,6 +118,12 @@ const Login = () => {
                             />
                         </IntegrationButton>
                     </div>
+                    <Hint>
+                        Don't have an account yet?{' '}
+                        <Link href="/signup">
+                            <a>Signup</a>
+                        </Link>
+                    </Hint>
                 </InputWrap>
             </LoginSheet>
         </>

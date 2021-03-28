@@ -27,7 +27,8 @@
     "baseUrl": ".",
     "paths": {
       "@themes/*": ["src/themes/*"],
-      "@components/*": ["src/components/*"]
+      "@components/*": ["src/components/*"],
+      "@layouts/*": ["src/layouts/*"]
     }
   },
   "include": [

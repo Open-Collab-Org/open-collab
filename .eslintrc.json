@@ -70,7 +70,6 @@
     "no-self-compare": "error",
     "no-throw-literal": "error",
     "no-unmodified-loop-condition": "error",
-    "no-unused-expressions": "error",
     "no-useless-concat": "error",
     "radix": "warn",
     "require-await": "error",
@@ -98,10 +97,6 @@
     ],
     "max-lines": "warn",
     "multiline-comment-style": "error",
-    "multiline-ternary": [
-      "error",
-      "never"
-    ],
     "no-array-constructor": "error",
     "no-bitwise": "error",
     "no-lonely-if": "error",
