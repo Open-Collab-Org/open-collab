@@ -8,7 +8,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "test": "jest --watchAll",
+    "test": "jest",
+    "test:watch": "yarn test --watchAll",
     "test:coverage": "yarn test --collectCoverage --watchAll=false"
   },
   "repository": "https://github.com/open-collaboration/web",
