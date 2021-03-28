@@ -7,7 +7,7 @@ module.exports = {
     },
     setupFiles: ['react-app-polyfill/jsdom'],
     setupFilesAfterEnv: ['<rootDir>/config/jest/setupTests.js'],
-    testMatch: ['<rootDir>/tests/**/*.test.ts'],
+    testMatch: ['<rootDir>/tests/**/*.test.{ts,tsx}'],
     testEnvironment: 'jsdom',
     testRunner: '<rootDir>/node_modules/jest-circus/runner.js',
     transform: {
@@ -21,9 +21,13 @@ module.exports = {
         '^.+\\.module\\.(css|sass|scss)$'
     ],
     modulePaths: [],
+    moduleDirectories: ['node_modules', 'src'],
     moduleNameMapper: {
         '^react-native$': 'react-native-web',
-        '^.+\\.module\\.(css|sass|scss)$': 'identity-obj-proxy'
+        '^.+\\.module\\.(css|sass|scss)$': 'identity-obj-proxy',
+        '@themes/(.*)': '<rootDir>/src/themes/$1',
+        '@components/(.*)': '<rootDir>/src/components/$1',
+        '@layouts/(.*)': '<rootDir>/src/layouts/$1'
     },
     moduleFileExtensions: [
         'web.js',
@@ -40,6 +44,5 @@ module.exports = {
     watchPlugins: [
         'jest-watch-typeahead/filename',
         'jest-watch-typeahead/testname'
-    ],
-    resetMocks: true
+    ]
 };
