@@ -27,7 +27,8 @@ module.exports = {
         '^.+\\.module\\.(css|sass|scss)$': 'identity-obj-proxy',
         '@themes/(.*)': '<rootDir>/src/themes/$1',
         '@components/(.*)': '<rootDir>/src/components/$1',
-        '@layouts/(.*)': '<rootDir>/src/layouts/$1'
+        '@layouts/(.*)': '<rootDir>/src/layouts/$1',
+        '@pages/(.*)': '<rootDir>/src/pages/$1'
     },
     moduleFileExtensions: [
         'web.js',

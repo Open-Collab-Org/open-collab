@@ -74,4 +74,6 @@ describe('Suite Header', () => {
             'Foo Bar'
         );
     });
+
+    it.todo('should prioritize pathname provided by props over the url');
 });
