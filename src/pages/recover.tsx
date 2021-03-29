@@ -12,7 +12,7 @@ import Recaptcha from '@components/Recaptcha';
 const Info = styled.span`
     text-align: center;
     font-size: 16px;
-    color: ${props => props.theme.colors.grayOne};
+    color: ${props => props.theme.colors.grayScale.one};
     margin: 0 15px 40px 15px;
 `;
 

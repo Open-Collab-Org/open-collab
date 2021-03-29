@@ -20,7 +20,7 @@ const ErrorCode = styled.h1`
 
 const Message = styled.p`
     font-family: ${props => props.theme.fonts.robotoMono};
-    color: ${props => props.theme.colors.grayOne};
+    color: ${props => props.theme.colors.grayScale.one};
     margin-top: 5%;
     margin-bottom: 3%;
     padding: 0 20%;

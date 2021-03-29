@@ -11,7 +11,13 @@ const light: DefaultTheme = {
         sheetBorder: '#E5E5E5',
         fieldBg: '#F9F9F9',
         fieldBorder: '#CFCFCF',
-        grayOne: '#787878'
+        grayScale: {
+            one: '#787878',
+            two: '#959595',
+            three: '#AFAFAF',
+            four: '#CECECE',
+            five: '#EEEEEE'
+        }
     },
     fonts: {
         raleway: "'Raleway', sans-serif",

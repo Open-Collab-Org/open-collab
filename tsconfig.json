@@ -29,7 +29,8 @@
       "@themes/*": ["src/themes/*"],
       "@components/*": ["src/components/*"],
       "@layouts/*": ["src/layouts/*"],
-      "@pages/*": ["src/pages/*"]
+      "@pages/*": ["src/pages/*"],
+      "@types": ["src/types/index"]
     }
   },
   "include": [
