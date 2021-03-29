@@ -30,8 +30,15 @@ const LastOfPath = styled(Path)`
     color: white;
 `;
 
-const Header = () => {
-    const router = useRouter();
+interface HeaderProps {
+    /**
+     * Path to be used instead of the current URL
+     */
+    pathname?: string;
+}
+
+const Header = ({ pathname }: HeaderProps) => {
+    const path = pathname ? pathname : useRouter().pathname;
 
     const capitalize = (str: string) =>
         str
@@ -43,7 +50,7 @@ const Header = () => {
      * Array that representes the path name but the slashes are individual
      * elements, not a part of the string of the pathname
      */
-    const pathArr = router.pathname
+    const pathArr = path
         .split('/')
         .map(str => capitalize(str.replace(/-/g, ' ')))
         .reduce((arr: string[], e) => (e ? [...arr, '/', e] : arr), []);
