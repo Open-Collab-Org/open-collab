@@ -3,6 +3,7 @@ import { IProject } from '@types';
 import styled from 'styled-components';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { addQueryParam } from '@util';
 
 const ProjectWrap = styled.div`
     font-family: ${props => props.theme.fonts.roboto};
@@ -23,6 +24,10 @@ const ShortDescription = styled.p`
     color: ${props => props.theme.colors.grayScale.three};
     font-size: 18px;
     line-height: 26px;
+    cursor: pointer;
+    :hover {
+        color: ${props => props.theme.colors.grayScale.one};
+    }
 `;
 
 const Skills = styled.span`
@@ -79,18 +84,7 @@ const Project = ({
     skills,
     addSeparatorBelow
 }: Omit<ProjectProps, 'id'>) => {
-    const { query } = useRouter();
-
-    const getTagsQueryString = (current: string | undefined, tag: string) => {
-        if (!current) {
-            current = '';
-        } else if (current.split(',').includes(tag)) {
-            return current;
-        }
-        return `${current}${current ? ',' : ''}${tag}`;
-    };
-
-    // TODO Get query string no mather how many tags are there
+    const router = useRouter();
 
     return (
         <ProjectWrap>
@@ -99,25 +93,28 @@ const Project = ({
             </Link>
             <Tags>
                 {tags.map(tag => (
-                    <Link
+                    <Tag
                         key={tag}
-                        href={`/?tags=${getTagsQueryString(
-                            query.tags as string,
-                            tag
-                        )}`}
+                        onClick={() => addQueryParam(router, '/', 'tags', tag)}
                     >
-                        <Tag>{tag}</Tag>
-                    </Link>
+                        {tag}
+                    </Tag>
                 ))}
             </Tags>
-            <ShortDescription>{shortDescription}</ShortDescription>
+            <Link href={url}>
+                <ShortDescription>{shortDescription}</ShortDescription>
+            </Link>
             <Skills>
                 <b className="mr-1">Skills needed: </b>
                 {skills.map((skill, i) => (
-                    <span>
-                        <Link key={skill} href={`/?`}>
-                            <Skill>{skill}</Skill>
-                        </Link>
+                    <span key={skill}>
+                        <Skill
+                            onClick={() =>
+                                addQueryParam(router, '/', 'skills', skill)
+                            }
+                        >
+                            {skill}
+                        </Skill>
                         {skills[i + 1] ? ', ' : ''}
                     </span>
                 ))}

@@ -8,7 +8,7 @@ import Project from '@components/Project';
 
 const Content = styled.div`
     font-family: ${props => props.theme.fonts.roboto};
-    padding: 0 5%;
+    padding: 0 5% 70px 5%;
     margin: 70px auto;
     max-width: 974px;
     box-sizing: content-box;
@@ -46,7 +46,7 @@ const getProjectsMock = (n: number): IProject[] => {
     for (let i = 0; i < n; i++) {
         arr.push({
             name: 'Lorem Ipsum',
-            tags: ['Foo', 'Bar', 'Ipsum', 'Lorem'],
+            tags: ['Foo', 'Bar', 'Ipsum', 'Foo Bar'],
             shortDescription:
                 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec qu',
             id: i.toString(),
@@ -60,7 +60,7 @@ const getProjectsMock = (n: number): IProject[] => {
 const Index = () => {
     // const { data, error } = useSWR('/projects'); // Use the API when it's available
 
-    const data = getProjectsMock(10);
+    const data = getProjectsMock(5);
 
     return (
         <>

@@ -29,7 +29,8 @@ module.exports = {
         '@components/(.*)': '<rootDir>/src/components/$1',
         '@layouts/(.*)': '<rootDir>/src/layouts/$1',
         '@pages/(.*)': '<rootDir>/src/pages/$1',
-        '@types/(.*)': '<rootDir>/src/types/index'
+        '@types': '<rootDir>/src/types/index',
+        '@util': '<rootDir>/src/util/index'
     },
     moduleFileExtensions: [
         'web.js',

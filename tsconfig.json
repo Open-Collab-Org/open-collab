@@ -30,7 +30,8 @@
       "@components/*": ["src/components/*"],
       "@layouts/*": ["src/layouts/*"],
       "@pages/*": ["src/pages/*"],
-      "@types": ["src/types/index"]
+      "@types": ["src/types/index"],
+      "@util": ["src/util/index"]
     }
   },
   "include": [
