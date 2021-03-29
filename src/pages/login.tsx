@@ -19,7 +19,7 @@ const ForgotPassword = styled.a`
     line-height: 16px;
     color: #c6c6c6;
     text-align: right;
-    margin: 8px 0 25px 0;
+    margin: 8px 0 15px 0;
     cursor: pointer;
 `;
 
@@ -44,11 +44,10 @@ const Login = () => {
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log('Form submitted!');
         recaptcha.execute();
     };
 
-    const handleRecaptchaResolved = (token: string, captcha: Recaptcha) => {
+    const handleRecaptchaResolved = (token: string, recaptcha: Recaptcha) => {
         axios({
             url: '/login',
             method: 'POST',
@@ -65,7 +64,7 @@ const Login = () => {
             }
         })
             .catch(err => console.error(err))
-            .finally(() => isMounted && captcha.reset());
+            .finally(() => isMounted && recaptcha.reset());
     };
 
     return (

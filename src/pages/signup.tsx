@@ -33,6 +33,11 @@ const Signup = () => {
         []
     );
 
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        isMounted && recaptcha.execute();
+    };
+
     const handleRecaptchaResolved = (token: string, captcha: Recaptcha) => {
         axios({
             url: '/users',
@@ -53,12 +58,6 @@ const Signup = () => {
         })
             .catch(err => console.error(err))
             .finally(() => isMounted && captcha.reset());
-    };
-
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        // TODO Client side validation
-        recaptcha.execute();
     };
 
     return (
@@ -128,7 +127,7 @@ const Signup = () => {
                             />
                         </IntegrationButton>
                     </div>
-                    <Hint className="mt-2">
+                    <Hint>
                         Already have an account?{' '}
                         <Link href="/login">
                             <a>Login</a>

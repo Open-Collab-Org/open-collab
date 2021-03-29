@@ -12,6 +12,7 @@ declare module 'styled-components' {
             sheetBorder: string;
             fieldBg: string;
             fieldBorder: string;
+            grayOne: string;
         };
         fonts: {
             // TODO Change name for title, primary, etc, ...

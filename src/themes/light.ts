@@ -10,7 +10,8 @@ const light: DefaultTheme = {
         sheet: '#FFFFFF',
         sheetBorder: '#E5E5E5',
         fieldBg: '#F9F9F9',
-        fieldBorder: '#CFCFCF'
+        fieldBorder: '#CFCFCF',
+        grayOne: '#787878'
     },
     fonts: {
         raleway: "'Raleway', sans-serif",
