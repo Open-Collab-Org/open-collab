@@ -33,13 +33,19 @@ const LastOfPath = styled(Path)`
 const Header = () => {
     const router = useRouter();
 
+    const capitalize = (str: string) =>
+        str
+            .split(' ')
+            .map(s => s.charAt(0).toUpperCase() + s.slice(1))
+            .join(' ');
+
     /*
      * Array that representes the path name but the slashes are individual
      * elements, not a part of the string of the pathname
      */
     const pathArr = router.pathname
         .split('/')
-        .map(str => str.charAt(0).toUpperCase() + str.slice(1))
+        .map(str => capitalize(str.replace(/-/g, ' ')))
         .reduce((arr: string[], e) => (e ? [...arr, '/', e] : arr), []);
 
     return (
