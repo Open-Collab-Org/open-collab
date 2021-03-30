@@ -27,7 +27,12 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
-const swrFetcher = (url: string) => axios.get(url).then(res => res.data);
+const swrFetcher = (url: string) =>
+    axios({
+        url,
+        method: 'GET',
+        baseURL: process.env.NEXT_PUBLIC_API_BASE_URL
+    }).then(res => res.data);
 
 const App = ({ Component, pageProps }: AppProps) => (
     <>

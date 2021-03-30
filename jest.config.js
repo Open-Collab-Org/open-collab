@@ -30,7 +30,8 @@ module.exports = {
         '@layouts/(.*)': '<rootDir>/src/layouts/$1',
         '@pages/(.*)': '<rootDir>/src/pages/$1',
         '@types': '<rootDir>/src/types/index',
-        '@util': '<rootDir>/src/util/index'
+        '@util': '<rootDir>/src/util/index',
+        '@hooks': '<rootDir>/src/hooks/index'
     },
     moduleFileExtensions: [
         'web.js',

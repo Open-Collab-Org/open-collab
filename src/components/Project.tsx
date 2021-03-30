@@ -3,7 +3,8 @@ import { IProject } from '@types';
 import styled from 'styled-components';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { addQueryParam } from '@util';
+import { addQueryParam, isValueInQueryParam, removeQueryParam } from '@util';
+import { Separator } from './styles/util';
 
 const ProjectWrap = styled.div`
     font-family: ${props => props.theme.fonts.roboto};
@@ -26,7 +27,7 @@ const ShortDescription = styled.p`
     line-height: 26px;
     cursor: pointer;
     :hover {
-        color: ${props => props.theme.colors.grayScale.one};
+        color: ${props => props.theme.colors.grayScale.two};
     }
 `;
 
@@ -36,7 +37,10 @@ const Skills = styled.span`
     color: ${props => props.theme.colors.grayScale.two};
 `;
 
-const Skill = styled.span`
+const Skill = styled.span<{ active: boolean }>`
+    font-weight: ${props => (props.active ? 500 : 'normal')};
+    color: ${props =>
+        props.active ? props.theme.colors.grayScale.one : 'inherit'};
     cursor: pointer;
     :hover {
         text-decoration: underline;
@@ -44,27 +48,26 @@ const Skill = styled.span`
 `;
 
 const Tags = styled.div`
-    margin: 10px 0 15px 0;
+    margin: 12px 0 24px 0;
 `;
 
-const Tag = styled.span`
+const Tag = styled.span<{ active: boolean }>`
     font-size: 16px;
     font-weight: 400;
-    color: ${props => props.theme.colors.grayScale.one};
+    color: ${props =>
+        props.active
+            ? props.theme.colors.primary
+            : props.theme.colors.grayScale.one};
     padding: 3px 9px;
     background-color: ${props => props.theme.colors.grayScale.five};
     border-radius: 5px;
+    border: ${props =>
+        props.active ? `1px solid ${props.theme.colors.primary}` : 'none'};
     margin-right: 10px;
     cursor: pointer;
     :hover {
         background-color: ${props => props.theme.colors.grayScale.four};
     }
-`;
-
-const Separator = styled.hr`
-    border: 1px solid #cecece80;
-    margin: 25px auto;
-    width: 80%;
 `;
 
 type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
@@ -86,6 +89,17 @@ const Project = ({
 }: Omit<ProjectProps, 'id'>) => {
     const router = useRouter();
 
+    // Shift selected tags to the left
+    tags.sort((a: string, b: string) => {
+        if (isValueInQueryParam(router, 'tags', b)) {
+            return 1;
+        } else if (isValueInQueryParam(router, 'tags', a)) {
+            return -1;
+        } else {
+            return 0;
+        }
+    });
+
     return (
         <ProjectWrap>
             <Link href={url}>
@@ -95,7 +109,14 @@ const Project = ({
                 {tags.map(tag => (
                     <Tag
                         key={tag}
-                        onClick={() => addQueryParam(router, '/', 'tags', tag)}
+                        active={isValueInQueryParam(router, 'tags', tag)}
+                        onClick={() => {
+                            if (isValueInQueryParam(router, 'tags', tag)) {
+                                removeQueryParam(router, 'tags', tag);
+                            } else {
+                                addQueryParam(router, '/', 'tags', tag);
+                            }
+                        }}
                     >
                         {tag}
                     </Tag>
@@ -109,9 +130,20 @@ const Project = ({
                 {skills.map((skill, i) => (
                     <span key={skill}>
                         <Skill
-                            onClick={() =>
-                                addQueryParam(router, '/', 'skills', skill)
-                            }
+                            active={isValueInQueryParam(
+                                router,
+                                'skills',
+                                skill
+                            )}
+                            onClick={() => {
+                                if (
+                                    isValueInQueryParam(router, 'skills', skill)
+                                ) {
+                                    removeQueryParam(router, 'skills', skill);
+                                } else {
+                                    addQueryParam(router, '/', 'skills', skill);
+                                }
+                            }}
                         >
                             {skill}
                         </Skill>
@@ -123,4 +155,5 @@ const Project = ({
         </ProjectWrap>
     );
 };
+
 export default Project;

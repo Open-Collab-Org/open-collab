@@ -20,9 +20,9 @@ export interface IProject {
     shortDescription: string;
 
     /**
-     * The UUID of this project
+     * A UID for the project to be used in the URL
      */
-    id: string;
+    id: number;
 
     /**
      * The URL that points to this project

@@ -14,6 +14,7 @@ import { NextRouter } from 'next/router';
  * @param paramName Name of the query param to be altered
  * @param value Value to be added to the provided query param
  * @param append Whether or not the value should replace existing ones in the query param
+ * @return the same promise as Next's router `push` method
  */
 export const addQueryParam = (
     router: NextRouter,
@@ -27,15 +28,8 @@ export const addQueryParam = (
         query: { ...router.query }
     };
 
-    const queryExists = !!router.query[paramName];
-    const valueIsAlreadyPresent =
-        queryExists &&
-        decodeURI(router.query[paramName] as string)
-            .split(',')
-            .includes(value);
-
-    if (queryExists) {
-        if (!valueIsAlreadyPresent) {
+    if (doesQueryParamExist(router, paramName)) {
+        if (!isValueInQueryParam(router, paramName, value)) {
             config.query[paramName] = append
                 ? `${router.query[paramName]},${encodeURI(value)}`
                 : encodeURI(value);
@@ -46,3 +40,64 @@ export const addQueryParam = (
 
     return router.push(config);
 };
+
+/**
+ * Removes a value from the specified query param if it's present on the query. If the value
+ * is the only one in the provided query, it will remove the query completely
+ *
+ * @param router
+ * @param paramName
+ * @param value
+ * @return the same promise as Next's router `push` method
+ */
+export const removeQueryParam = (
+    router: NextRouter,
+    paramName: string,
+    value: string
+) => {
+    const config = {
+        pathname: router.pathname,
+        query: { ...router.query }
+    };
+
+    if (isValueInQueryParam(router, paramName, value)) {
+        config.query[paramName] = decodeURI(config.query[paramName] as string);
+        config.query[paramName] = (config.query[paramName] as string)
+            .split(',')
+            .filter(v => v !== value)
+            .join(',');
+        if ((config.query[paramName] as string).length > 0) {
+            config.query[paramName] = encodeURI(
+                config.query[paramName] as string
+            );
+        } else {
+            delete config.query[paramName];
+        }
+    }
+
+    return router.push(config);
+};
+
+/**
+ * Returns if the `value` is already present in the query param `paramName`
+ * @param router Next router to retrieve the current query
+ * @param paramName the name of the query param to check if the value is present
+ * @param value decoded value to check against the query
+ */
+export const isValueInQueryParam = (
+    router: NextRouter,
+    paramName: string,
+    value: string
+) =>
+    doesQueryParamExist(router, paramName) &&
+    decodeURI(router.query[paramName] as string)
+        .split(',')
+        .includes(value);
+
+/**
+ * Returns if the query has the param `paramName`, regardless of its values
+ * @param router
+ * @param paramName
+ */
+export const doesQueryParamExist = (router: NextRouter, paramName: string) =>
+    !!router.query[paramName];
