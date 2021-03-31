@@ -76,14 +76,12 @@ const Signup = () => {
                     <Input
                         name="username"
                         id="username"
-                        type="text"
                         placeholder="JohnDoe"
                     />
                     <InputLabel htmlFor="email">E-mail</InputLabel>
                     <Input
                         name="email"
                         id="email"
-                        type="text"
                         placeholder="john@email.com"
                     />
                     <InputLabel htmlFor="password">Password</InputLabel>

@@ -79,7 +79,6 @@ const Login = () => {
                     <Input
                         name="username"
                         id="username"
-                        type="text"
                         placeholder="JohnDoe"
                     />
                     <InputLabel htmlFor="password">Password</InputLabel>

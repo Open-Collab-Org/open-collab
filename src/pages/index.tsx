@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import Image from 'next/image';
-import styled from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components';
 import HomeHeader from '@components/HomeHeader';
 import { IProject } from '@types';
 import Project from '@components/Project';
@@ -36,6 +36,12 @@ const Tip = styled.label`
     color: ${props => props.theme.colors.grayScale.four};
     display: inline-flex;
     align-items: center;
+`;
+
+const WhiteBodyStyle = createGlobalStyle`
+    body {
+        background-color: white !important;
+    }
 `;
 
 /**
@@ -78,10 +84,6 @@ const Index = () => {
     /*
      * https://codesandbox.io/s/using-paginated-data-with-swr-forked-5y0y2?file=/pages/index.js
      * https://github.com/vercel/swr/blob/master/examples/infinite-scroll/pages/index.js
-     *
-     *https://github.com/zenoamaro/react-quill/issues/284
-     * https://github.com/zenoamaro/react-quill/issues/357
-     * https://codesandbox.io/s/nww9q0v67p?from-embed=&file=/src/index.js
      */
 
     // How many projects should be fetch each time
@@ -122,6 +124,7 @@ const Index = () => {
 
     return (
         <>
+            <WhiteBodyStyle />
             <HomeHeader />
 
             <Content>
@@ -139,7 +142,6 @@ const Index = () => {
                 <SearchBar
                     id="query"
                     name="q"
-                    type="text"
                     placeholder="Search for a project"
                 />
 

@@ -44,7 +44,7 @@ export default class MyDocument extends Document {
             <Html>
                 <Head>
                     <link rel="preconnect" href="https://fonts.gstatic.com" />
-                    {/* TODO Is the practicality of loading all the fonts always worth the performance impact?*/}
+                    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.1/highlight.min.js"></script>
                     <link
                         href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;600&family=Roboto+Mono:wght@400;700&family=Roboto:wght@400;500&display=swap"
                         rel="stylesheet"

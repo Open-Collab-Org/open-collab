@@ -19,8 +19,7 @@ const GlobalStyle = createGlobalStyle`
     height: 100%;
   }
   body {
-    /* TODO Can't use theme here. Find some way to do it dynamically */
-    background-color: white; 
+    background-color: ${props => props.theme.colors.background}; 
   }
   * {
     box-sizing: border-box;
@@ -36,8 +35,8 @@ const swrFetcher = (url: string) =>
 
 const App = ({ Component, pageProps }: AppProps) => (
     <>
-        <GlobalStyle />
         <ThemeProvider theme={light}>
+            <GlobalStyle />
             <SWRConfig value={{ fetcher: swrFetcher }}>
                 <Component {...pageProps} />
             </SWRConfig>

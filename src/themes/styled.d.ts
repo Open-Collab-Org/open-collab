@@ -10,14 +10,13 @@ declare module 'styled-components' {
             background: string;
             sheet: string;
             sheetBorder: string;
-            fieldBg: string;
-            fieldBorder: string;
             grayScale: {
                 one: string;
                 two: string;
                 three: string;
                 four: string;
                 five: string;
+                seven: string;
             };
         };
         fonts: {

@@ -58,7 +58,6 @@ const Recover = () => {
                     <Input
                         name="username"
                         id="username"
-                        type="text"
                         placeholder="JohnDoe"
                     />
 

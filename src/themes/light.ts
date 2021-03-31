@@ -9,14 +9,13 @@ const light: DefaultTheme = {
         background: '#F8F8F8',
         sheet: '#FFFFFF',
         sheetBorder: '#E5E5E5',
-        fieldBg: '#F9F9F9',
-        fieldBorder: '#CFCFCF',
         grayScale: {
             one: '#787878',
             two: '#959595',
             three: '#AFAFAF',
             four: '#CECECE',
-            five: '#EEEEEE'
+            five: '#EEEEEE',
+            seven: '#F9F9F9'
         }
     },
     fonts: {

@@ -13,13 +13,15 @@ const StyledHeader = styled.div`
     align-content: center;
 `;
 
-const Title = styled.span`
+const Title = styled.a`
     font-weight: bold;
     margin: auto 0;
     font-size: 24px;
     cursor: pointer;
+    color: inherit;
     :hover {
         color: #ffffff80;
+        text-decoration: none;
     }
 `;
 
