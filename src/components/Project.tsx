@@ -114,7 +114,7 @@ const Project = ({
                             if (isValueInQueryParam(router, 'tags', tag)) {
                                 removeQueryParam(router, 'tags', tag);
                             } else {
-                                addQueryParam(router, '/', 'tags', tag);
+                                addQueryParam(router, 'tags', tag);
                             }
                         }}
                     >
@@ -141,7 +141,7 @@ const Project = ({
                                 ) {
                                     removeQueryParam(router, 'skills', skill);
                                 } else {
-                                    addQueryParam(router, '/', 'skills', skill);
+                                    addQueryParam(router, 'skills', skill);
                                 }
                             }}
                         >

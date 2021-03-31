@@ -78,6 +78,10 @@ const Index = () => {
     /*
      * https://codesandbox.io/s/using-paginated-data-with-swr-forked-5y0y2?file=/pages/index.js
      * https://github.com/vercel/swr/blob/master/examples/infinite-scroll/pages/index.js
+     *
+     *https://github.com/zenoamaro/react-quill/issues/284
+     * https://github.com/zenoamaro/react-quill/issues/357
+     * https://codesandbox.io/s/nww9q0v67p?from-embed=&file=/src/index.js
      */
 
     // How many projects should be fetch each time
@@ -101,7 +105,7 @@ const Index = () => {
     // data from swr will be an array of arrays, so convert it to a single array with all the projects
     const projects: IProject[] = data
         ? data.reduce((acm: IProject[], current) => acm.concat(current), [])
-        : getProjectsMock(10);
+        : getProjectsMock(10); // TODO Change to an empty array when api route is working
 
     const isLoadingInitialData = !data && !error;
     const isLoadingMore =
@@ -151,7 +155,8 @@ const Index = () => {
                         addSeparatorBelow={!!projects[i + 1]}
                     />
                 ))}
-                {isLoadingMore && <ProjectLoader ref={ref} />}
+                {/* TODO Test if it's working this way, conditionally rendering the ProjectLoader was causing bugs*/}
+                <div ref={ref}>{isLoadingMore && <ProjectLoader />}</div>
             </Content>
         </>
     );

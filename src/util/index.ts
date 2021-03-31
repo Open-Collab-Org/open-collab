@@ -18,24 +18,23 @@ import { NextRouter } from 'next/router';
  */
 export const addQueryParam = (
     router: NextRouter,
-    pathname: string,
     paramName: string,
     value: string,
     append = true
 ) => {
     const config = {
-        pathname,
+        pathname: router.pathname,
         query: { ...router.query }
     };
 
     if (doesQueryParamExist(router, paramName)) {
         if (!isValueInQueryParam(router, paramName, value)) {
             config.query[paramName] = append
-                ? `${router.query[paramName]},${encodeURI(value)}`
-                : encodeURI(value);
+                ? `${router.query[paramName]}${encodeURIComponent(`,${value}`)}`
+                : encodeURIComponent(value);
         }
     } else {
-        config.query[paramName] = encodeURI(value);
+        config.query[paramName] = encodeURIComponent(value);
     }
 
     return router.push(config);
@@ -61,13 +60,15 @@ export const removeQueryParam = (
     };
 
     if (isValueInQueryParam(router, paramName, value)) {
-        config.query[paramName] = decodeURI(config.query[paramName] as string);
+        config.query[paramName] = decodeURIComponent(
+            config.query[paramName] as string
+        );
         config.query[paramName] = (config.query[paramName] as string)
             .split(',')
             .filter(v => v !== value)
             .join(',');
         if ((config.query[paramName] as string).length > 0) {
-            config.query[paramName] = encodeURI(
+            config.query[paramName] = encodeURIComponent(
                 config.query[paramName] as string
             );
         } else {
@@ -90,7 +91,7 @@ export const isValueInQueryParam = (
     value: string
 ) =>
     doesQueryParamExist(router, paramName) &&
-    decodeURI(router.query[paramName] as string)
+    decodeURIComponent(router.query[paramName] as string)
         .split(',')
         .includes(value);
 
@@ -100,4 +101,4 @@ export const isValueInQueryParam = (
  * @param paramName
  */
 export const doesQueryParamExist = (router: NextRouter, paramName: string) =>
-    !!router.query[paramName];
+    Object.keys(router.query).includes(paramName);

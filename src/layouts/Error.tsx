@@ -5,7 +5,6 @@ import styled from 'styled-components';
 
 const Container = styled.div`
     font-family: ${props => props.theme.fonts.roboto};
-    font-size: 36px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -15,45 +14,48 @@ const Container = styled.div`
 `;
 
 const ErrorCode = styled.h1`
-    font-size: 80px;
+    font-size: 60px;
+    line-height: 70px;
 `;
 
 const Message = styled.p`
-    font-family: ${props => props.theme.fonts.robotoMono};
     color: ${props => props.theme.colors.grayScale.one};
-    margin-top: 5%;
-    margin-bottom: 3%;
+    font-size: 24px;
+    margin: 3% 0;
     padding: 0 20%;
-    max-width: 650px;
+    max-width: 317px;
     box-sizing: content-box;
 `;
 
-const HomePage = styled.a`
+const Anchor = styled.a`
     color: ${props => props.theme.colors.primary};
     cursor: pointer;
+    font-size: 18px;
 `;
 
-const errorMessages = {
-    404: "It seems like the page you are looking for doesn't exist",
-    // Default message
-    undefined: 'An unexpected error has occurred. Please try again'
+const Error = ({ code }: { code?: number }) => {
+    const errorMessages = {
+        404: "It seems like the page you are looking for doesn't exist",
+        // Default message
+        undefined: 'An unexpected error has occurred. Please try again'
+    };
+
+    return (
+        <>
+            <Header pathname="/error" />
+
+            <Container>
+                <ErrorCode>{code ? code : 'Error'}</ErrorCode>
+
+                {/* @ts-ignore In this case we want to use undefined as an index type to the default message */}
+                <Message>{errorMessages[code]}</Message>
+
+                <Link href="/" replace={true}>
+                    <Anchor>home</Anchor>
+                </Link>
+            </Container>
+        </>
+    );
 };
-
-const Error = ({ code }: { code?: number }) => (
-    <>
-        <Header pathname="/error" />
-
-        <Container>
-            <ErrorCode>{code ? code : 'Error'}</ErrorCode>
-
-            {/* @ts-ignore In this case we want to use undefined as an index type to the default message */}
-            <Message>{errorMessages[code]}</Message>
-
-            <Link href="/">
-                <HomePage>home</HomePage>
-            </Link>
-        </Container>
-    </>
-);
 
 export default Error;
