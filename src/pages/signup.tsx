@@ -41,7 +41,7 @@ const Signup = () => {
     const handleRecaptchaResolved = (token: string, captcha: Recaptcha) => {
         axios({
             url: '/users',
-            baseURL: process.env.NEXT_PUBLIC_HOST,
+            baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
             method: 'POST',
             cancelToken: source.token,
             data: {

@@ -28,7 +28,10 @@ module.exports = {
         '@themes/(.*)': '<rootDir>/src/themes/$1',
         '@components/(.*)': '<rootDir>/src/components/$1',
         '@layouts/(.*)': '<rootDir>/src/layouts/$1',
-        '@pages/(.*)': '<rootDir>/src/pages/$1'
+        '@pages/(.*)': '<rootDir>/src/pages/$1',
+        '@types': '<rootDir>/src/types/index',
+        '@util': '<rootDir>/src/util/index',
+        '@hooks': '<rootDir>/src/hooks/index'
     },
     moduleFileExtensions: [
         'web.js',

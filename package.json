@@ -2,7 +2,7 @@
   "name": "@open-collaboration/web",
   "version": "0.1.0",
   "private": true,
-  "description": "A hub where open projects come to life",
+  "description": "Where open source ideas come to life",
   "homepage": "https://opencollab.us",
   "scripts": {
     "dev": "next dev",
@@ -48,6 +48,7 @@
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "styled-components": "^5.2.1",
+    "swr": "^0.5.4",
     "uuid": "^8.3.2"
   },
   "devDependencies": {

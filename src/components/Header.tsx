@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 
 const StyledHeader = styled.div`
     background-color: ${props => props.theme.colors.darkGraffiti};
@@ -16,6 +17,10 @@ const Title = styled.span`
     font-weight: bold;
     margin: auto 0;
     font-size: 24px;
+    cursor: pointer;
+    :hover {
+        color: #ffffff80;
+    }
 `;
 
 const Path = styled.span`
@@ -57,7 +62,9 @@ const Header = ({ pathname }: HeaderProps) => {
 
     return (
         <StyledHeader>
-            <Title>Open Collab</Title>
+            <Link href="/">
+                <Title>Open Collab</Title>
+            </Link>
             {pathArr.map((text, i) =>
                 i === pathArr.length - 1 ? (
                     <LastOfPath className="mx-2" key={i}>

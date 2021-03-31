@@ -46,7 +46,7 @@ export default class MyDocument extends Document {
                     <link rel="preconnect" href="https://fonts.gstatic.com" />
                     {/* TODO Is the practicality of loading all the fonts always worth the performance impact?*/}
                     <link
-                        href="https://fonts.googleapis.com/css2?family=Raleway&family=Roboto+Mono:wght@400;700&family=Roboto:wght@400;500&display=swap"
+                        href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;600&family=Roboto+Mono:wght@400;700&family=Roboto:wght@400;500&display=swap"
                         rel="stylesheet"
                     />
                 </Head>

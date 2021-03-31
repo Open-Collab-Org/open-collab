@@ -51,7 +51,7 @@ const Login = () => {
         axios({
             url: '/login',
             method: 'POST',
-            baseURL: process.env.NEXT_PUBLIC_HOST,
+            baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
             cancelToken: source.token,
             data: {
                 username: (document.getElementById(
