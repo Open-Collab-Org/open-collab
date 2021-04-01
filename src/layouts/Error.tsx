@@ -2,6 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import Header from '@components/Header';
 import styled from 'styled-components';
+import { useRouter } from 'next/router';
 
 const Container = styled.div`
     font-family: ${props => props.theme.fonts.roboto};
@@ -33,12 +34,20 @@ const Anchor = styled.a`
     font-size: 18px;
 `;
 
+const Links = styled.div`
+    display: flex;
+    min-width: 200px;
+    justify-content: space-around;
+`;
+
 const Error = ({ code }: { code?: number }) => {
     const errorMessages = {
         404: "It seems like the page you are looking for doesn't exist",
         // Default message
         undefined: 'An unexpected error has occurred. Please try again'
     };
+
+    const router = useRouter();
 
     return (
         <>
@@ -50,9 +59,12 @@ const Error = ({ code }: { code?: number }) => {
                 {/* @ts-ignore In this case we want to use undefined as an index type to the default message */}
                 <Message>{errorMessages[code]}</Message>
 
-                <Link href="/" replace={true}>
-                    <Anchor>home</Anchor>
-                </Link>
+                <Links>
+                    <Link href="/" replace={true} passHref={true}>
+                        <Anchor>home</Anchor>
+                    </Link>
+                    <Anchor onClick={router.back}>go back</Anchor>
+                </Links>
             </Container>
         </>
     );

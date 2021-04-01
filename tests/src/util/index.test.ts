@@ -1,8 +1,8 @@
 import {
-    addQueryParam,
+    addValueToQueryParam,
     doesQueryParamExist,
     isValueInQueryParam,
-    removeQueryParam
+    removeValueFromQueryParam
 } from '@util';
 import { NextRouter } from 'next/router';
 
@@ -20,7 +20,11 @@ describe('Suite Util', () => {
 
         describe('Add', () => {
             it("should create a query param if it doesn't exist already", () => {
-                addQueryParam((router as never) as NextRouter, 'foo', 'bar');
+                addValueToQueryParam(
+                    (router as never) as NextRouter,
+                    'foo',
+                    'bar'
+                );
                 const { query } = (router.push as jest.Mock).mock.calls[0][0];
                 expect(query.foo).toBe('bar');
             });
@@ -29,7 +33,11 @@ describe('Suite Util', () => {
                 router.query = {
                     foo: 'Lorem'
                 };
-                addQueryParam((router as never) as NextRouter, 'foo', 'Ipsum');
+                addValueToQueryParam(
+                    (router as never) as NextRouter,
+                    'foo',
+                    'Ipsum'
+                );
                 const { query } = (router.push as jest.Mock).mock.calls[0][0];
                 expect(query.foo).toBe(encodeURIComponent('Lorem,Ipsum'));
             });
@@ -38,7 +46,11 @@ describe('Suite Util', () => {
                 router.query = {
                     foo: 'Lorem%2CBar'
                 };
-                addQueryParam((router as never) as NextRouter, 'foo', 'Lorem');
+                addValueToQueryParam(
+                    (router as never) as NextRouter,
+                    'foo',
+                    'Lorem'
+                );
                 const { query } = (router.push as jest.Mock).mock.calls[0][0];
                 expect(query).toStrictEqual(router.query);
             });
@@ -47,7 +59,7 @@ describe('Suite Util', () => {
                 router.query = {
                     foo: 'Lorem%2CBar'
                 };
-                addQueryParam(
+                addValueToQueryParam(
                     (router as never) as NextRouter,
                     'foo',
                     'Ipsum',
@@ -61,7 +73,7 @@ describe('Suite Util', () => {
                 router.query = {
                     foo: 'Lorem%2CBar'
                 };
-                addQueryParam(
+                addValueToQueryParam(
                     (router as never) as NextRouter,
                     'foo',
                     'Ipsum',
@@ -73,7 +85,11 @@ describe('Suite Util', () => {
 
             it('should return uri safe values', () => {
                 const unsafe = 'some uri *$&!@*( -// unsafe string';
-                addQueryParam((router as never) as NextRouter, 'foo', unsafe);
+                addValueToQueryParam(
+                    (router as never) as NextRouter,
+                    'foo',
+                    unsafe
+                );
                 const { query } = (router.push as jest.Mock).mock.calls[0][0];
                 expect(query.foo).toBe(encodeURIComponent(unsafe));
             });
@@ -92,20 +108,20 @@ describe('Suite Util', () => {
             });
 
             it('should not modify the query when removing a value that is not present in such query', () => {
-                removeQueryParam(router, 'lorem', 'bar');
+                removeValueFromQueryParam(router, 'lorem', 'bar');
                 const { query } = (router.push as jest.Mock).mock.calls[0][0];
                 expect(query.lorem).toBe('ipsum');
             });
 
             it("should not modify the query when trying to remove a value from a parameter that doesn't exist", () => {
-                removeQueryParam(router, 'notReallyThere', 'bar');
+                removeValueFromQueryParam(router, 'notReallyThere', 'bar');
                 const { query } = (router.push as jest.Mock).mock.calls[0][0];
                 expect(query).toStrictEqual(router.query);
             });
 
             it('should remove only the specified value', () => {
                 router.query.foo = encodeURIComponent('bar,foo');
-                removeQueryParam(router, 'foo', 'bar');
+                removeValueFromQueryParam(router, 'foo', 'bar');
                 const { query } = (router.push as jest.Mock).mock.calls[0][0];
                 expect(query.foo).toBe('foo');
             });
@@ -116,13 +132,13 @@ describe('Suite Util', () => {
                 router.query.unsafe = encodeURIComponent(
                     `${unsafe},${alsoUnsafe}`
                 );
-                removeQueryParam(router, 'unsafe', unsafe);
+                removeValueFromQueryParam(router, 'unsafe', unsafe);
                 const { query } = (router.push as jest.Mock).mock.calls[0][0];
                 expect(query.unsafe).toBe(encodeURIComponent(alsoUnsafe));
             });
 
             it('should remove a query param if the removed value was the only one present', () => {
-                removeQueryParam(router, 'foo', 'bar');
+                removeValueFromQueryParam(router, 'foo', 'bar');
                 const { query } = (router.push as jest.Mock).mock.calls[0][0];
                 expect(query).toStrictEqual({ lorem: 'ipsum' });
             });

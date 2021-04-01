@@ -6,7 +6,7 @@ import { IProject } from '@types';
 import Project from '@components/Project';
 import { useSWRInfinite } from 'swr';
 import { useOnScreen } from '@hooks';
-import ProjectLoader from '@components/ProjectLoader';
+import ProjectLoader from '@styles/skeleton/ProjectSkeleton';
 
 const Content = styled.div`
     font-family: ${props => props.theme.fonts.roboto};
@@ -58,8 +58,7 @@ const getProjectsMock = (n: number): IProject[] => {
             shortDescription:
                 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec qu',
             id: i,
-            skills: ['C++', 'Rust', 'JavaScript', 'HTML', 'CSS', 'AWS'],
-            url: '/'
+            skills: ['C++', 'Rust', 'JavaScript', 'HTML', 'CSS', 'AWS']
         });
     }
     return arr;
@@ -151,7 +150,7 @@ const Index = () => {
                         name={project.name}
                         tags={project.tags}
                         shortDescription={project.shortDescription}
-                        url={project.url}
+                        id={project.id}
                         skills={project.skills}
                         key={project.id}
                         addSeparatorBelow={!!projects[i + 1]}

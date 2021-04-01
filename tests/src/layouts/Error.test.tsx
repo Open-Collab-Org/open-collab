@@ -5,12 +5,20 @@ import renderer from 'react-test-renderer';
 import { ThemeProvider } from 'styled-components';
 import light from '@themes/light';
 import Error from '@layouts/Error';
+import * as nextRouter from 'next/router';
 
 // Remove the header from the page since it has its own tests
 jest.mock('@components/Header', () => ({
     __esModule: true,
     default: () => <></>
 }));
+
+jest.spyOn(nextRouter, 'useRouter').mockImplementation(
+    () =>
+        (({
+            back: jest.fn()
+        } as any) as nextRouter.NextRouter)
+);
 
 interface MessageElement {
     type: 'p';

@@ -3,31 +3,38 @@ import { IProject } from '@types';
 import styled from 'styled-components';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { addQueryParam, isValueInQueryParam, removeQueryParam } from '@util';
+import {
+    addValueToQueryParam,
+    isValueInQueryParam,
+    removeValueFromQueryParam
+} from '@util';
 import { Separator } from './styles/util';
 
 const ProjectWrap = styled.div`
     font-family: ${props => props.theme.fonts.roboto};
 `;
 
-const Title = styled.span`
+const Title = styled.a`
     font-size: 24px;
     line-height: 28px;
     color: black;
     font-weight: 400;
     cursor: pointer;
     :hover {
-        text-decoration: underline;
+        color: black;
     }
 `;
 
-const ShortDescription = styled.p`
+const ShortDescription = styled.a`
     color: ${props => props.theme.colors.grayScale.three};
+    display: block;
+    margin-bottom: 1rem;
     font-size: 18px;
     line-height: 26px;
     cursor: pointer;
     :hover {
         color: ${props => props.theme.colors.grayScale.two};
+        text-decoration: none;
     }
 `;
 
@@ -70,7 +77,7 @@ const Tag = styled.span<{ active: boolean }>`
     }
 `;
 
-type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
+// type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 
 interface ProjectProps extends IProject {
     /**
@@ -80,13 +87,13 @@ interface ProjectProps extends IProject {
 }
 
 const Project = ({
-    url,
+    id,
     shortDescription,
     name,
     tags,
     skills,
     addSeparatorBelow
-}: Omit<ProjectProps, 'id'>) => {
+}: ProjectProps) => {
     const router = useRouter();
 
     // Shift selected tags to the left
@@ -100,9 +107,11 @@ const Project = ({
         }
     });
 
+    const url = `/projects/${id}`;
+
     return (
         <ProjectWrap>
-            <Link href={url}>
+            <Link href={url} passHref={true} prefetch={false}>
                 <Title>{name}</Title>
             </Link>
             <Tags>
@@ -112,9 +121,9 @@ const Project = ({
                         active={isValueInQueryParam(router, 'tags', tag)}
                         onClick={() => {
                             if (isValueInQueryParam(router, 'tags', tag)) {
-                                removeQueryParam(router, 'tags', tag);
+                                removeValueFromQueryParam(router, 'tags', tag);
                             } else {
-                                addQueryParam(router, 'tags', tag);
+                                addValueToQueryParam(router, 'tags', tag);
                             }
                         }}
                     >
@@ -122,7 +131,7 @@ const Project = ({
                     </Tag>
                 ))}
             </Tags>
-            <Link href={url}>
+            <Link href={url} passHref={true} prefetch={false}>
                 <ShortDescription>{shortDescription}</ShortDescription>
             </Link>
             <Skills>
@@ -139,9 +148,17 @@ const Project = ({
                                 if (
                                     isValueInQueryParam(router, 'skills', skill)
                                 ) {
-                                    removeQueryParam(router, 'skills', skill);
+                                    removeValueFromQueryParam(
+                                        router,
+                                        'skills',
+                                        skill
+                                    );
                                 } else {
-                                    addQueryParam(router, 'skills', skill);
+                                    addValueToQueryParam(
+                                        router,
+                                        'skills',
+                                        skill
+                                    );
                                 }
                             }}
                         >

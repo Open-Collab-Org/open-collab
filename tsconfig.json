@@ -28,6 +28,7 @@
     "paths": {
       "@themes/*": ["src/themes/*"],
       "@components/*": ["src/components/*"],
+      "@styles/*": ["src/components/styles/*"],
       "@layouts/*": ["src/layouts/*"],
       "@pages/*": ["src/pages/*"],
       "@types": ["src/types/index"],

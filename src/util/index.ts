@@ -1,8 +1,7 @@
 import { NextRouter } from 'next/router';
 
 /**
- * Redirects the user using Next's router to the provided pathname,
- * after adding to the query param `paramName` the value `value`. If `append`
+ * Adds in the current ur the query param `paramName` the value `value`. If `append`
  * is set to `false` (defaults to `true`), the value provided will be the only one in the
  * query param. If it's set to `true`, it will append the value to the current one.
  *
@@ -10,13 +9,12 @@ import { NextRouter } from 'next/router';
  * to the query param if it's already present there.
  *
  * @param router NextRouter from `useRouter` hook
- * @param pathname To where the user should be redirected
  * @param paramName Name of the query param to be altered
  * @param value Value to be added to the provided query param
  * @param append Whether or not the value should replace existing ones in the query param
  * @return the same promise as Next's router `push` method
  */
-export const addQueryParam = (
+export const addValueToQueryParam = (
     router: NextRouter,
     paramName: string,
     value: string,
@@ -41,7 +39,7 @@ export const addQueryParam = (
 };
 
 /**
- * Removes a value from the specified query param if it's present on the query. If the value
+ * Removes a value from the specified query param if it's present in the query. If the value
  * is the only one in the provided query, it will remove the query completely
  *
  * @param router
@@ -49,7 +47,7 @@ export const addQueryParam = (
  * @param value
  * @return the same promise as Next's router `push` method
  */
-export const removeQueryParam = (
+export const removeValueFromQueryParam = (
     router: NextRouter,
     paramName: string,
     value: string
@@ -65,11 +63,11 @@ export const removeQueryParam = (
         );
         config.query[paramName] = (config.query[paramName] as string)
             .split(',')
-            .filter(v => v !== value)
-            .join(',');
-        if ((config.query[paramName] as string).length > 0) {
+            .filter(v => v !== value);
+        if ((config.query[paramName] as string[]).length > 0) {
             config.query[paramName] = encodeURIComponent(
-                config.query[paramName] as string
+                // @ts-ignore encodeURIComponent can encode arrays - shortcut do join with comma and encode
+                config.query[paramName] as string[]
             );
         } else {
             delete config.query[paramName];

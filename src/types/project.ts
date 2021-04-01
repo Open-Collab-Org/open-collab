@@ -23,9 +23,4 @@ export interface IProject {
      * A UID for the project to be used in the URL
      */
     id: number;
-
-    /**
-     * The URL that points to this project
-     */
-    url: string;
 }

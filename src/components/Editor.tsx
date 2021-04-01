@@ -4,6 +4,7 @@ import 'react-quill/dist/quill.snow.css';
 import { createGlobalStyle } from 'styled-components';
 import * as ReactQuill from 'react-quill';
 import 'highlight.js/styles/rainbow.css';
+import { EditorSkeleton } from '@styles/skeleton';
 
 const QuillSnowOverwrite = createGlobalStyle`
   div.ql-container.ql-snow {
@@ -30,7 +31,7 @@ const QuillSnowOverwrite = createGlobalStyle`
 
 const Quill = dynamic(import('react-quill'), {
     ssr: false,
-    loading: () => <h1>Loading Editor</h1>
+    loading: EditorSkeleton
 });
 
 /**
@@ -39,9 +40,6 @@ const Quill = dynamic(import('react-quill'), {
  * be rendered in the server.
  *
  * It is **crucial** to pass `{ ssr: false }` to the `dynamic` function.
- * Using a loading component is possible but not recommended since this
- * component already defines a skeleton loader, which will result in two different
- * loading components at the same time
  *
  * @example
  * import dynamic from 'next/dynamic';

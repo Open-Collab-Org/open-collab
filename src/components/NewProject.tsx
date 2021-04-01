@@ -8,8 +8,12 @@ import {
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import dynamic from 'next/dynamic';
+import { EditorSkeleton } from '@styles/skeleton';
 
-const Editor = dynamic(() => import('@components/Editor'), { ssr: false });
+const Editor = dynamic(() => import('@components/Editor'), {
+    ssr: false,
+    loading: EditorSkeleton
+});
 
 const NewProjectSheet = styled.form`
     display: flex;
@@ -34,8 +38,22 @@ const ShortDescription = styled(TextArea)`
     max-width: 418px;
 `;
 
-const NewProject = () => {
+interface NewProjectProps {
+    /**
+     * Array that represents the selected action from the URL
+     *
+     * @example
+     * // /projects/new/edit/something-else => ['edit', 'something-else']
+     * // /projects/new/edit => ['edit']
+     * // /projects/new => []
+     */
+    action: string[];
+}
+
+const NewProject = ({ action }: NewProjectProps) => {
     const [projectName, setProjectName] = useState('New Project');
+
+    console.log(action);
 
     const handleProjectNameChange = (
         e: React.ChangeEvent<HTMLInputElement>

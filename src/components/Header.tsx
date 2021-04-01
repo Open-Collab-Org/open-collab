@@ -64,7 +64,7 @@ const Header = ({ pathname }: HeaderProps) => {
 
     return (
         <StyledHeader>
-            <Link href="/">
+            <Link href="/" passHref={true}>
                 <Title>Open Collab</Title>
             </Link>
             {pathArr.map((text, i) =>

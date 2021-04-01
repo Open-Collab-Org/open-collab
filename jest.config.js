@@ -27,6 +27,7 @@ module.exports = {
         '^.+\\.module\\.(css|sass|scss)$': 'identity-obj-proxy',
         '@themes/(.*)': '<rootDir>/src/themes/$1',
         '@components/(.*)': '<rootDir>/src/components/$1',
+        '@styles/(.*)': '<rootDir>/src/components/styles/$1',
         '@layouts/(.*)': '<rootDir>/src/layouts/$1',
         '@pages/(.*)': '<rootDir>/src/pages/$1',
         '@types': '<rootDir>/src/types/index',
