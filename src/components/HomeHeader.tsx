@@ -85,10 +85,10 @@ const HomeHeader = () => (
                 <Title>Open Collab</Title>
             </div>
             <ButtonsWrap className="col">
-                <Link href="/login">
+                <Link href="/login" passHref={true}>
                     <Button>Login</Button>
                 </Link>
-                <Link href="/signup">
+                <Link href="/signup" passHref={true}>
                     <Button style={{ marginLeft: 20 }}>Signup</Button>
                 </Link>
             </ButtonsWrap>
@@ -98,13 +98,13 @@ const HomeHeader = () => (
             life
         </Slogan>
         <Nav>
-            <Link href="/faq#about">
+            <Link href="/faq#about" passHref={true}>
                 <NavLink>What is this site?</NavLink>
             </Link>
-            <Link href="/faq#target">
+            <Link href="/faq#target" passHref={true}>
                 <NavLink>Who is this for?</NavLink>
             </Link>
-            <Link href="/faq#pricing">
+            <Link href="/faq#pricing" passHref={true}>
                 <NavLink>Is this free?</NavLink>
             </Link>
         </Nav>

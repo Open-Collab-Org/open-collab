@@ -104,9 +104,11 @@ const Index = () => {
     );
 
     // data from swr will be an array of arrays, so convert it to a single array with all the projects
-    const projects: IProject[] = data
+    let projects: IProject[] = data
         ? data.reduce((acm: IProject[], current) => acm.concat(current), [])
-        : getProjectsMock(10); // TODO Change to an empty array when api route is working
+        : [];
+
+    projects = getProjectsMock(10); // TODO Change when the API route is working
 
     const isLoadingInitialData = !data && !error;
     const isLoadingMore =

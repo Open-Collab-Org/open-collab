@@ -8,7 +8,7 @@ import {
     isValueInQueryParam,
     removeValueFromQueryParam
 } from '@util';
-import { Separator } from './styles/util';
+import { Separator } from '@styles/util';
 
 const ProjectWrap = styled.div`
     font-family: ${props => props.theme.fonts.roboto};
