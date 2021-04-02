@@ -71,6 +71,8 @@ interface NewProjectProps {
 const NewProject = ({ action }: NewProjectProps) => {
     const [projectName, setProjectName] = useState('New Project');
 
+    const QUILL_DELTA_INPUT_ID = 'quill-delta-ops';
+
     const handleProjectNameChange = (
         e: React.ChangeEvent<HTMLInputElement>
     ) => {
@@ -87,6 +89,18 @@ const NewProject = ({ action }: NewProjectProps) => {
         { text: 'Edit', active: true },
         { text: 'Publish' }
     ];
+
+    // https://github.com/zenoamaro/react-quill/blob/master/src/index.tsx
+    const onEditorChange = (
+        _value: any,
+        _delta: any,
+        _source: any,
+        editor: any
+    ) => {
+        (document.getElementById(
+            QUILL_DELTA_INPUT_ID
+        ) as HTMLInputElement).value = JSON.stringify(editor.getContents());
+    };
 
     return (
         <>
@@ -127,7 +141,15 @@ const NewProject = ({ action }: NewProjectProps) => {
                             />
 
                             <InputLabel>Full description</InputLabel>
-                            <Editor placeholder="Talk a little bit more about your project" />
+                            <input
+                                id={QUILL_DELTA_INPUT_ID}
+                                type="text"
+                                hidden={true}
+                            />
+                            <Editor
+                                placeholder="Talk a little bit more about your project"
+                                onChange={onEditorChange}
+                            />
                         </InputWrap>
                     </NewProjectSheet>
                 </MainCol>

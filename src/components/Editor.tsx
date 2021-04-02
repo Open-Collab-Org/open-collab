@@ -62,6 +62,17 @@ const Editor: typeof Quill = props => {
         [{ list: 'ordered' }, { list: 'bullet' }, { align: [] }]
     ];
 
+    const editorModules = {
+        ...props.modules,
+        toolbar: {
+            container: props.modules?.toolbar || defaultToolbarOptions,
+            handlers: {
+                image: imageHandler
+            }
+        },
+        syntax: true
+    };
+
     /*
      * Custom toolbar icons
      * https://github.com/quilljs/quill/issues/1099#issuecomment-258560326
@@ -83,7 +94,6 @@ const Editor: typeof Quill = props => {
         const originalHide = tooltip.hide;
 
         tooltip.save = function () {
-            console.log(this);
             const range = this.quill.getSelection(true);
             const value = this.textbox.value;
             if (value) {
@@ -103,20 +113,7 @@ const Editor: typeof Quill = props => {
     return (
         <>
             <QuillSnowOverwrite />
-            <Quill
-                {...props}
-                modules={{
-                    ...props.modules,
-                    toolbar: {
-                        container:
-                            props.modules?.toolbar || defaultToolbarOptions,
-                        handlers: {
-                            image: imageHandler
-                        }
-                    },
-                    syntax: true
-                }}
-            />
+            <Quill {...props} modules={editorModules} />
         </>
     );
 };
