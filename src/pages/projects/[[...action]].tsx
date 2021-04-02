@@ -1,6 +1,6 @@
 import React from 'react';
 import { useRouter } from 'next/router';
-import NewProject from '@components/NewProject';
+import NewProject from '@layouts/NewProject';
 import Error from '@layouts/Error';
 
 const ProjectHandler = () => {

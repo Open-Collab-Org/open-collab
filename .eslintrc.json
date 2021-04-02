@@ -82,10 +82,6 @@
       "consistent"
     ],
     "jsx-quotes": "error",
-    "indent": [
-      "error",
-      4
-    ],
     "key-spacing": "error",
     "linebreak-style": "error",
     "lines-between-class-members": "error",

@@ -57,6 +57,7 @@ const Editor: typeof Quill = props => {
 
         ['bold', 'italic', 'underline'],
         ['code', 'code-block'],
+        ['image'],
 
         [{ list: 'ordered' }, { list: 'bullet' }, { align: [] }]
     ];
@@ -75,6 +76,30 @@ const Editor: typeof Quill = props => {
         '\t<polyline class="ql-stroke" points="12.84 3 14 3 14 13 2 13 2 8.43"/>\n' +
         '</svg>';
 
+    // https://stackoverflow.com/questions/59602182/quill-add-image-url-instead-of-uploading-it
+    function imageHandler(this: any) {
+        const tooltip = this.quill.theme.tooltip;
+        const originalSave = tooltip.save;
+        const originalHide = tooltip.hide;
+
+        tooltip.save = function () {
+            console.log(this);
+            const range = this.quill.getSelection(true);
+            const value = this.textbox.value;
+            if (value) {
+                this.quill.insertEmbed(range.index, 'image', value, 'user');
+            }
+        };
+        // Called on hide and save.
+        tooltip.hide = function () {
+            tooltip.save = originalSave;
+            tooltip.hide = originalHide;
+            tooltip.hide();
+        };
+        tooltip.edit('image');
+        tooltip.textbox.placeholder = 'Image URL';
+    }
+
     return (
         <>
             <QuillSnowOverwrite />
@@ -82,7 +107,13 @@ const Editor: typeof Quill = props => {
                 {...props}
                 modules={{
                     ...props.modules,
-                    toolbar: props.modules?.toolbar || defaultToolbarOptions,
+                    toolbar: {
+                        container:
+                            props.modules?.toolbar || defaultToolbarOptions,
+                        handlers: {
+                            image: imageHandler
+                        }
+                    },
                     syntax: true
                 }}
             />
