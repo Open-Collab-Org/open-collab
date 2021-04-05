@@ -2,14 +2,8 @@ import Header from '@components/Header';
 import { Input, InputLabel, InputWrap, TextArea } from '@styles/inputs';
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import dynamic from 'next/dynamic';
-import { EditorSkeleton } from '@styles/skeleton';
 import SideBar, { ISideBarItem } from '@components/SideBar';
-
-const Editor = dynamic(() => import('@components/Editor'), {
-    ssr: false,
-    loading: EditorSkeleton
-});
+import Editor from '@components/Editor';
 
 const NewProjectSheet = styled.form`
     display: grid;
@@ -71,7 +65,7 @@ interface NewProjectProps {
 const NewProject = ({ action }: NewProjectProps) => {
     const [projectName, setProjectName] = useState('New Project');
 
-    const QUILL_DELTA_INPUT_ID = 'quill-delta-ops';
+    console.log(action);
 
     const handleProjectNameChange = (
         e: React.ChangeEvent<HTMLInputElement>
@@ -85,22 +79,9 @@ const NewProject = ({ action }: NewProjectProps) => {
     };
 
     const sidebarItems: ISideBarItem[] = [
-        { text: 'Preview' },
         { text: 'Edit', active: true },
         { text: 'Publish' }
     ];
-
-    // https://github.com/zenoamaro/react-quill/blob/master/src/index.tsx
-    const onEditorChange = (
-        _value: any,
-        _delta: any,
-        _source: any,
-        editor: any
-    ) => {
-        (document.getElementById(
-            QUILL_DELTA_INPUT_ID
-        ) as HTMLInputElement).value = JSON.stringify(editor.getContents());
-    };
 
     return (
         <>
@@ -141,15 +122,7 @@ const NewProject = ({ action }: NewProjectProps) => {
                             />
 
                             <InputLabel>Full description</InputLabel>
-                            <input
-                                id={QUILL_DELTA_INPUT_ID}
-                                type="text"
-                                hidden={true}
-                            />
-                            <Editor
-                                placeholder="Talk a little bit more about your project"
-                                onChange={onEditorChange}
-                            />
+                            <Editor />
                         </InputWrap>
                     </NewProjectSheet>
                 </MainCol>

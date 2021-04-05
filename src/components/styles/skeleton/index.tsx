@@ -3,7 +3,6 @@ import styled, {
     keyframes,
     StyledComponent
 } from 'styled-components';
-import React from 'react';
 
 const loadFrames = keyframes`
           from {
@@ -46,14 +45,3 @@ export const SkeletonLine = styled<
     border-radius: 1px;
     margin-bottom: 10px;
 `;
-
-export const EditorSkeleton = () => {
-    const els: JSX.Element[] = [];
-
-    for (let i = 0; i < 8; i++) {
-        els.push(
-            <SkeletonLine key={i} widthPercentage={100} className="mb-3" />
-        );
-    }
-    return <div>{els}</div>;
-};
