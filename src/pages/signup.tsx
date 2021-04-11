@@ -7,10 +7,10 @@ import { Input, InputLabel, InputWrap } from '@components/styles/inputs';
 import { SignupSheet } from '@components/styles/sheets';
 import { Button } from '@components/styles/buttons';
 import { IntegrationButton } from '@components/styles/integrations';
-import { Hint, Title } from '@components/styles/titles';
+import { AuthHint, AuthTitle } from '@components/styles/titles';
 import Recaptcha from '@components/Recaptcha';
 
-const SignupWith = styled(Hint)`
+const SignupWith = styled(AuthHint)`
     margin: 25px 0 25px 0;
 `;
 
@@ -69,7 +69,7 @@ const Signup = () => {
                 noValidate={true}
                 id="signup-form"
             >
-                <Title>Signup</Title>
+                <AuthTitle>Signup</AuthTitle>
 
                 <InputWrap>
                     <InputLabel htmlFor="username">Username</InputLabel>
@@ -125,12 +125,12 @@ const Signup = () => {
                             />
                         </IntegrationButton>
                     </div>
-                    <Hint>
+                    <AuthHint>
                         Already have an account?{' '}
                         <Link href="/login">
                             <a>Login</a>
                         </Link>
-                    </Hint>
+                    </AuthHint>
                 </InputWrap>
             </SignupSheet>
         </>

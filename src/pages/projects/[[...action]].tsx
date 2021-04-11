@@ -2,6 +2,7 @@ import React from 'react';
 import { useRouter } from 'next/router';
 import NewProject from '@layouts/NewProject';
 import Error from '@layouts/Error';
+import Project from '@components/Project';
 
 const ProjectHandler = () => {
     const router = useRouter();
@@ -14,7 +15,7 @@ const ProjectHandler = () => {
     }
 
     if (!isNaN(Number(action[0]))) {
-        return <h1>You've requested the project #{action[0]}</h1>;
+        return <Project id={Number(action[0])} />;
     }
 
     /*

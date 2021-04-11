@@ -4,7 +4,7 @@ import Header from '@components/Header';
 import { Input, InputLabel, InputWrap } from '@components/styles/inputs';
 import { LoginSheet } from '@components/styles/sheets';
 import { Button } from '@components/styles/buttons';
-import { Title } from '@components/styles/titles';
+import { AuthTitle } from '@components/styles/titles';
 import Recaptcha from '@components/Recaptcha';
 
 const Recover = () => {
@@ -37,7 +37,7 @@ const Recover = () => {
             <Header />
 
             <LoginSheet onSubmit={handleSubmit} noValidate={true}>
-                <Title>Change Password</Title>
+                <AuthTitle>Change Password</AuthTitle>
 
                 <InputWrap>
                     <InputLabel htmlFor="password">New password</InputLabel>

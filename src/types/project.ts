@@ -20,6 +20,11 @@ export interface IProject {
     shortDescription: string;
 
     /**
+     * The complete description of the project in markdown
+     */
+    fullDescription: string;
+
+    /**
      * A UID for the project to be used in the URL
      */
     id: number;

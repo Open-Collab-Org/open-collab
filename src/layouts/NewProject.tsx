@@ -2,38 +2,39 @@ import Header from '@components/Header';
 import { Input, InputLabel, InputWrap, TextArea } from '@styles/inputs';
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import SideBar, { ISideBarItem } from '@components/SideBar';
 import Editor from '@components/Editor';
+import { PublishButton } from '@components/styles/buttons';
 
-const NewProjectSheet = styled.form`
-    display: grid;
-    flex-wrap: wrap;
-    min-width: 958px;
-    width: 100%;
-    padding: 45px 104px;
-    background-color: white;
-    border: 2px solid ${props => props.theme.colors.sheetBorder};
+const Title = styled.h1`
+    font-family: ${props => props.theme.fonts.roboto};
+    font-size: 24px;
+    line-height: 28px;
+    margin: 0;
 `;
 
-const Grid = styled.div`
+const HeaderWrap = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 43px;
+`;
+
+const ButtonsWrap = styled.div`
+    display: flex;
+`;
+
+const Container = styled.div`
     display: flex;
     justify-content: center;
     margin: 55px auto;
-    grid-template-columns: 1fr auto 1fr;
-    grid-template-rows: auto;
 `;
 
-const MainCol = styled.div`
-    grid-column: 2 / 3;
-    grid-row: 1 / 2;
-`;
-
-const LeftCol = styled.div`
-    display: flex;
-    justify-content: flex-end;
-    margin-right: 36px;
-    grid-column: 1 / 2;
-    grid-row: 1 / 2;
+const NewProjectSheet = styled.form`
+    min-width: 958px;
+    padding: 45px 104px;
+    background-color: white;
+    border: 2px solid ${props => props.theme.colors.sheetBorder};
+    margin-bottom: 55px;
 `;
 
 const ProjectName = styled(Input)`
@@ -74,59 +75,53 @@ const NewProject = ({ action }: NewProjectProps) => {
         setProjectName(e.target.value);
     };
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-    };
-
-    const sidebarItems: ISideBarItem[] = [
-        { text: 'Edit', active: true },
-        { text: 'Publish' }
-    ];
-
     return (
         <>
             <Header pathname={`/projects/${projectName || 'New Project'}`} />
 
-            <Grid>
-                <LeftCol>
-                    <SideBar items={sidebarItems} />
-                </LeftCol>
+            <Container>
+                <NewProjectSheet
+                    onSubmit={e => e.preventDefault()}
+                    noValidate={true}
+                >
+                    <HeaderWrap>
+                        <Title>Create project</Title>
+                        <ButtonsWrap>
+                            <PublishButton>Publish</PublishButton>
+                        </ButtonsWrap>
+                    </HeaderWrap>
+                    <InputWrap>
+                        <InputLabel htmlFor="projectName">
+                            Project name
+                        </InputLabel>
+                        <ProjectName
+                            id="projectName"
+                            name="projectName"
+                            placeholder="My awesome project"
+                            onChange={handleProjectNameChange}
+                        />
 
-                <MainCol>
-                    <NewProjectSheet onSubmit={handleSubmit} noValidate={true}>
-                        <InputWrap>
-                            <InputLabel htmlFor="projectName">
-                                Project name
-                            </InputLabel>
-                            <ProjectName
-                                id="projectName"
-                                name="projectName"
-                                placeholder="My awesome project"
-                                onChange={handleProjectNameChange}
-                            />
+                        <InputLabel htmlFor="tags">Tags</InputLabel>
+                        <Tags
+                            id="tags"
+                            name="tags"
+                            placeholder="NextJS, React, Typescript"
+                        />
 
-                            <InputLabel htmlFor="tags">Tags</InputLabel>
-                            <Tags
-                                id="tags"
-                                name="tags"
-                                placeholder="NextJS, React, Typescript"
-                            />
+                        <InputLabel htmlFor="shortDescription">
+                            Short description
+                        </InputLabel>
+                        <ShortDescription
+                            id="shortDescription"
+                            name="shortDescription"
+                            placeholder="Describe your project in a few words"
+                        />
 
-                            <InputLabel htmlFor="shortDescription">
-                                Short description
-                            </InputLabel>
-                            <ShortDescription
-                                id="shortDescription"
-                                name="shortDescription"
-                                placeholder="Describe your project in a few words"
-                            />
-
-                            <InputLabel>Full description</InputLabel>
-                            <Editor />
-                        </InputWrap>
-                    </NewProjectSheet>
-                </MainCol>
-            </Grid>
+                        <InputLabel>Full description</InputLabel>
+                        <Editor />
+                    </InputWrap>
+                </NewProjectSheet>
+            </Container>
         </>
     );
 };

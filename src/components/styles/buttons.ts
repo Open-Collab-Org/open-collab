@@ -14,3 +14,27 @@ export const Button = styled.button`
         color: white;
     }
 `;
+
+export const ActionButton = styled(Button)`
+    margin: 0;
+    min-width: 86px;
+    :hover {
+        color: white;
+    }
+`;
+
+export const PublishButton = styled(ActionButton)`
+    color: ${props => props.theme.colors.primary};
+    border-color: ${props => props.theme.colors.primary};
+    :hover {
+        background-color: ${props => props.theme.colors.primary};
+    }
+`;
+
+export const ArchiveButton = styled(ActionButton)`
+    color: ${props => props.theme.colors.danger};
+    border-color: ${props => props.theme.colors.danger};
+    :hover {
+        background-color: ${props => props.theme.colors.danger};
+    }
+`;

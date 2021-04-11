@@ -119,7 +119,7 @@ const SideBar = ({ items }: { items: ISideBarItem[] }) => {
                     {...item.linkProps}
                 >
                     <Item
-                        active={item === active}
+                        active={JSON.stringify(item) === JSON.stringify(active)}
                         disabled={item.disabled}
                         onClick={e => clickHandler(e, item)}
                     >

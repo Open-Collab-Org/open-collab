@@ -3,7 +3,7 @@ import Image from 'next/image';
 import styled, { createGlobalStyle } from 'styled-components';
 import HomeHeader from '@components/HomeHeader';
 import { IProject } from '@types';
-import Project from '@components/Project';
+import ProjectSummary from '@components/ProjectSummary';
 import { useSWRInfinite } from 'swr';
 import { useOnScreen } from '@hooks';
 import ProjectLoader from '@styles/skeleton/ProjectSkeleton';
@@ -48,21 +48,22 @@ const WhiteBodyStyle = createGlobalStyle`
  * Generate `n` projects objects, mocking the API response
  * @param n Number of projects to generate
  */
-const getProjectsMock = (n: number): IProject[] => {
-    if (n < 0) return [];
-    const arr: IProject[] = [];
-    for (let i = 0; i < n; i++) {
-        arr.push({
-            name: 'Lorem Ipsum',
-            tags: ['Foo', 'Bar', 'Ipsum', 'Foo Bar'],
-            shortDescription:
-                'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec qu',
-            id: i,
-            skills: ['C++', 'Rust', 'JavaScript', 'HTML', 'CSS', 'AWS']
-        });
-    }
-    return arr;
-};
+// eslint-disable-next-line multiline-comment-style
+// const getProjectsMock = (n: number): IProject[] => {
+//     if (n < 0) return [];
+//     const arr: IProject[] = [];
+//     for (let i = 0; i < n; i++) {
+//         arr.push({
+//             name: 'Lorem Ipsum',
+//             tags: ['Foo', 'Bar', 'Ipsum', 'Foo Bar'],
+//             shortDescription:
+//                 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec qu',
+//             id: i,
+//             skills: ['C++', 'Rust', 'JavaScript', 'HTML', 'CSS', 'AWS']
+//         });
+//     }
+//     return arr;
+// };
 
 /**
  * Returns the next request URL for the SWR api based on the current page, data and page size
@@ -76,7 +77,7 @@ const getSWRKey = (
     pageSize: number
 ) => {
     if (previousPageData && !previousPageData.length) return null; // reached the end
-    return `/projects?page=${pageIndex + 1}&size=${pageSize}`;
+    return `/projects?pageOffset=${pageIndex + 1}&pageSize=${pageSize}`;
 };
 
 const Index = () => {
@@ -86,7 +87,7 @@ const Index = () => {
      */
 
     // How many projects should be fetch each time
-    const PAGE_SIZE = 15;
+    const PAGE_SIZE = 5;
 
     const ref = useRef<HTMLDivElement>(null);
 
@@ -104,11 +105,11 @@ const Index = () => {
     );
 
     // data from swr will be an array of arrays, so convert it to a single array with all the projects
-    let projects: IProject[] = data
+    const projects: IProject[] = data
         ? data.reduce((acm: IProject[], current) => acm.concat(current), [])
         : [];
 
-    projects = getProjectsMock(10); // TODO Change when the API route is working
+    // projects = getProjectsMock(10); // TODO Change when the API route is working
 
     const isLoadingInitialData = !data && !error;
     const isLoadingMore =
@@ -148,12 +149,12 @@ const Index = () => {
 
                 {/* TODO Message when there are no projects to display*/}
                 {projects.map((project, i) => (
-                    <Project
+                    <ProjectSummary
                         name={project.name}
                         tags={project.tags}
                         shortDescription={project.shortDescription}
                         id={project.id}
-                        skills={project.skills}
+                        skills={project.skills || ['skill', 'another skill']}
                         key={project.id}
                         addSeparatorBelow={!!projects[i + 1]}
                     />

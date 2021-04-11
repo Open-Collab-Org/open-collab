@@ -7,10 +7,10 @@ import { Input, InputLabel, InputWrap } from '@components/styles/inputs';
 import { LoginSheet } from '@components/styles/sheets';
 import { Button } from '@components/styles/buttons';
 import { IntegrationButton } from '@components/styles/integrations';
-import { Hint, Title } from '@components/styles/titles';
+import { AuthHint, AuthTitle } from '@components/styles/titles';
 import Recaptcha from '@components/Recaptcha';
 
-const LoginWith = styled(Hint)`
+const LoginWith = styled(AuthHint)`
     margin: 15px 0 25px 0;
 `;
 
@@ -72,7 +72,7 @@ const Login = () => {
             <Header />
 
             <LoginSheet onSubmit={handleSubmit} noValidate={true}>
-                <Title>Login</Title>
+                <AuthTitle>Login</AuthTitle>
 
                 <InputWrap>
                     <InputLabel htmlFor="login">Username or email</InputLabel>
@@ -116,12 +116,12 @@ const Login = () => {
                             />
                         </IntegrationButton>
                     </div>
-                    <Hint>
+                    <AuthHint>
                         Don't have an account yet?{' '}
                         <Link href="/signup">
                             <a>Signup</a>
                         </Link>
-                    </Hint>
+                    </AuthHint>
                 </InputWrap>
             </LoginSheet>
         </>

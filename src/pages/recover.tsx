@@ -6,7 +6,7 @@ import Header from '@components/Header';
 import { Input, InputLabel, InputWrap } from '@components/styles/inputs';
 import { LoginSheet } from '@components/styles/sheets';
 import { Button } from '@components/styles/buttons';
-import { Hint, Title } from '@components/styles/titles';
+import { AuthHint, AuthTitle } from '@components/styles/titles';
 import Recaptcha from '@components/Recaptcha';
 
 const Info = styled.span`
@@ -46,7 +46,7 @@ const Recover = () => {
             <Header />
 
             <LoginSheet onSubmit={handleSubmit} noValidate={true}>
-                <Title>Recover</Title>
+                <AuthTitle>Recover</AuthTitle>
 
                 <Info>
                     We will send you an email with instructions on how to
@@ -68,12 +68,12 @@ const Recover = () => {
 
                     <Button>Recover</Button>
 
-                    <Hint className="mt-4" style={{ marginTop: 15 }}>
+                    <AuthHint className="mt-4" style={{ marginTop: 15 }}>
                         Don't have an account yet?{' '}
                         <Link href="/signup">
                             <a>Signup</a>
                         </Link>
-                    </Hint>
+                    </AuthHint>
                 </InputWrap>
             </LoginSheet>
         </>
