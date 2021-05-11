@@ -153,6 +153,7 @@ const Index = () => {
                         name={project.name}
                         tags={project.tags}
                         shortDescription={project.shortDescription}
+                        fullDescription={project.fullDescription}
                         id={project.id}
                         skills={project.skills || ['skill', 'another skill']}
                         key={project.id}

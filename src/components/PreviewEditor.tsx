@@ -1,23 +1,27 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Editor from '@components/Editor';
+import { createGlobalStyle } from 'styled-components';
 
-const PreviewEditor = ({ value }: { value: string }) => {
-    useEffect(() => {
-        const editor = document.querySelector(
-            '.rc-md-editor'
-        ) as HTMLDivElement;
-        console.log(editor);
+const Styles = createGlobalStyle`
+    .rc-md-editor { 
+      border: none !important;
+    }
+    .rc-md-editor * {
+      font-family: ${props => props.theme.fonts.roboto};
+    }
+    .rc-md-editor pre code {
+      font-family: ${props => props.theme.fonts.robotoMono};
+    }
+    .section-container {
+      padding: 0 !important;
+    }
+`;
 
-        /*
-         * Remove toolbar
-         * console.log(editor.getElementsByClassName('rc-md-navigation')[0]);
-         */
-    }, [document.querySelector('.rc-md-editor')]);
-    return (
-        <>
-            <Editor value={value} />
-        </>
-    );
-};
+const PreviewEditor = ({ value }: { value: string }) => (
+    <>
+        <Styles />
+        <Editor value={value} config={{ view: { md: false, menu: false } }} />
+    </>
+);
 
 export default PreviewEditor;

@@ -1,6 +1,6 @@
 import Header from '@components/Header';
 import { Input, InputLabel, InputWrap, TextArea } from '@styles/inputs';
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
 import Editor from '@components/Editor';
 import { PublishButton } from '@components/styles/buttons';
@@ -75,6 +75,19 @@ const NewProject = ({ action }: NewProjectProps) => {
         setProjectName(e.target.value);
     };
 
+    const editorRef = useRef();
+
+    const publishProject = () => {
+        const project = {
+            githubLink: 'string',
+            longDescription: 'string',
+            name: 'string',
+            shortDescription: 'string',
+            tags: ['string']
+        };
+        console.log(editorRef.current);
+    };
+
     return (
         <>
             <Header pathname={`/projects/${projectName || 'New Project'}`} />
@@ -87,7 +100,9 @@ const NewProject = ({ action }: NewProjectProps) => {
                     <HeaderWrap>
                         <Title>Create project</Title>
                         <ButtonsWrap>
-                            <PublishButton>Publish</PublishButton>
+                            <PublishButton onClick={publishProject}>
+                                Publish
+                            </PublishButton>
                         </ButtonsWrap>
                     </HeaderWrap>
                     <InputWrap>
@@ -118,7 +133,7 @@ const NewProject = ({ action }: NewProjectProps) => {
                         />
 
                         <InputLabel>Full description</InputLabel>
-                        <Editor />
+                        <Editor editorRef={editorRef} style={{ height: 350 }} />
                     </InputWrap>
                 </NewProjectSheet>
             </Container>
